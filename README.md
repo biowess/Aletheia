@@ -137,8 +137,8 @@ Aletheia is available both as a standalone desktop application and as a locally-
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/biowess/aletheia.git
-cd aletheia
+git clone https://github.com/your-username/clinical-workstation.git
+cd clinical-workstation
 ```
 
 #### 2. Configure environment variables
@@ -162,16 +162,22 @@ NCBI_API_KEY=your_ncbi_api_key_here
 
 #### 3. Launch
 
+**Linux / macOS:**
 ```bash
 chmod +x initialize.sh
 ./initialize.sh
 ```
 
-That's it. The initializer handles system package installations (Python 3.11+, Node.js, npm, venv, and port utilities) across apt, dnf, yum, and pacman systems, bootstraps a secure environment, and runs the orchestrator:
+**Windows:**
+```bat
+start.bat
+```
 
-1. Auto-detects and installs system-level dependencies using your package manager
-2. Bootstraps a lightweight python `.bootstrap-venv` environment
-3. Launches `launcher.py` to handle virtualenvs and parallel server orchestration
+That's it. The launcher automatically:
+
+1. Bootstraps a lightweight python virtual environment
+2. Installs required Python and Node.js dependencies
+3. Orchestrates parallel server startup
 4. Starts both the FastAPI server and Vite dev server, then opens `http://localhost:5173`
 
 #### Launcher options
@@ -236,7 +242,7 @@ All variables go in `backend/.env`. Copy `backend/.env.example` as your starting
 ## Architecture Overview
 
 ```
-aletheia/
+clinical-workstation/
 │
 ├── launcher.py                  # Unified bootstrapper - single entry point
 │
