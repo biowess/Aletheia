@@ -8,9 +8,57 @@ Dependencies: standard library + rich
 
 import sys
 import os
-import time
-import platform
 import subprocess
+import platform
+
+def bootstrap():
+    # ── Prerequisite check ──────────────────────────────────────────────────
+    ok = sys.version_info >= (3, 11)
+    if not ok:
+        print(f"Error: Python version {platform.python_version()} found, but launcher.py requires 3.11+.")
+        sys.exit(1)
+
+    backend_dir = os.path.abspath("backend")
+    venv_dir = os.path.join(backend_dir, ".venv")
+    is_windows = sys.platform == "win32"
+    
+    if is_windows:
+        venv_python = os.path.join(venv_dir, "Scripts", "python.exe")
+    else:
+        venv_python = os.path.join(venv_dir, "bin", "python")
+        
+    # Check if we are running in the venv
+    if os.path.normpath(sys.executable) == os.path.normpath(venv_python):
+        return # We are already in the venv, proceed with the rest of the script.
+
+    if not os.path.exists(venv_dir):
+        print("creating virtual environment")
+        subprocess.run([sys.executable, "-m", "venv", venv_dir], check=True)
+    else:
+        print("using existing virtual environment")
+
+    req_path = os.path.join(backend_dir, "requirements.txt")
+    
+    # Check if dependencies are already installed by trying to import rich and uvicorn
+    res = subprocess.run([venv_python, "-c", "import rich, uvicorn"], capture_output=True)
+    if res.returncode != 0:
+        print("installing Python dependencies")
+        subprocess.run(
+            [venv_python, "-m", "pip", "install", "-r", req_path],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    else:
+        print("dependencies already satisfied")
+    
+    # Re-execute this script inside the venv
+    os.execl(venv_python, venv_python, *sys.argv)
+
+# Run bootstrap before any third-party imports
+bootstrap()
+
+import time
 import webbrowser
 import threading
 import socket
@@ -188,28 +236,6 @@ def validate_node() -> str:
 
 
 # ── Environment setup ──────────────────────────────────────────────────────────
-
-def ensure_venv(venv_dir: str) -> bool:
-    """Return True if the venv already existed, False if it was created."""
-    if os.path.exists(venv_dir):
-        console.print(check_mark(True), Text(" Virtual env      ", style="bold"), Text("already exists", style="muted"))
-        return True
-    with Status("[bold cyan]Creating virtual environment…[/]", console=console, spinner="dots"):
-        subprocess.run([sys.executable, "-m", "venv", venv_dir], check=True)
-    console.print(check_mark(True), Text(" Virtual env      ", style="bold"), Text("created", style="success"))
-    return False
-
-
-def install_pip_deps(venv_python: str, requirements_path: str) -> None:
-    with Status("[bold cyan]Installing Python dependencies…[/]", console=console, spinner="dots2"):
-        subprocess.run(
-            [venv_python, "-m", "pip", "install", "-r", requirements_path],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-    console.print(check_mark(True), Text(" Python deps      ", style="bold"), Text("installed", style="success"))
-
 
 def ensure_node_modules(npm_cmd: str, frontend_dir: str) -> None:
     node_modules = os.path.join(frontend_dir, "node_modules")
@@ -394,12 +420,6 @@ def main() -> None:
     else:
         venv_python = os.path.join(venv_dir, "bin", "python")
         npm_cmd = "npm"
-
-    # ── Environment setup ───────────────────────────────────────────────────────
-    ensure_venv(venv_dir)
-
-    requirements_path = os.path.join(backend_dir, "requirements.txt")
-    install_pip_deps(venv_python, requirements_path)
 
     ensure_node_modules(npm_cmd, frontend_dir)
 
