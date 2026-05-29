@@ -137,8 +137,8 @@ Aletheia is available both as a standalone desktop application and as a locally-
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/clinical-workstation.git
-cd clinical-workstation
+git clone https://github.com/biowess/aletheia.git
+cd aletheia
 ```
 
 #### 2. Configure environment variables
@@ -236,7 +236,7 @@ All variables go in `backend/.env`. Copy `backend/.env.example` as your starting
 ## Architecture Overview
 
 ```
-clinical-workstation/
+aletheia/
 │
 ├── launcher.py                  # Unified bootstrapper - single entry point
 │
