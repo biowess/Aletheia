@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite3
+
+# Exports
+exports/
+*.pdf
+*.pptx
+
+# Frontend
+node_modules/
+dist/
+build/
+
+# OS junk
+.DS_Store
+Thumbs.db
+squashfs-root/
+
+# IDE
+.vscode/
+.idea/
+
+aletheia-linux-desktop.zip

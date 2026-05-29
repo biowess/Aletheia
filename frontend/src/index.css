@@ -1,0 +1,695 @@
+/* ============================================================
+   Aletheia Design System CSS
+   Based on BRANDING.md canonical design tokens.
+   Typography: IBM Plex Sans (UI) · EB Garamond (reports)
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Aletheia Design Token Custom Properties ──────────────── */
+@layer base {
+  :root {
+    /* Brand anchors */
+    --aletheia-navy: #162C41;
+    --aletheia-slate: #4F606F;
+    --aletheia-white: #FFFFFF;
+
+    /* Backgrounds */
+    --bg-primary: #F5F8FB;
+    --bg-secondary: #EDF3F8;
+    --bg-tertiary: #E6EDF4;
+
+    /* Surfaces */
+    --surface-primary: #FFFFFF;
+    --surface-secondary: #F9FBFD;
+    --surface-elevated: #FFFFFF;
+    --surface-muted: #F2F6FA;
+
+    /* Borders */
+    --border-subtle: #E7EEF5;
+    --border-default: #D7E2EC;
+    --border-strong: #C4D3E0;
+
+    /* Text hierarchy */
+    --text-primary: #162C41;
+    --text-secondary: #4F606F;
+    --text-muted: #7C8A97;
+    --text-faint: #A7B4C0;
+
+    /* Semantic states */
+    --state-stable: #3E6B61;
+    --state-evolving: #C58A2B;
+    --state-declined: #9B4A4A;
+    --state-info: #244B73;
+
+    /* Confidence scale */
+    --confidence-high: #244B73;
+    --confidence-medium: #5D7892;
+    --confidence-low: #A5B4C2;
+    --confidence-minimal: #D5DEE7;
+
+    /* Shadows */
+    --shadow-soft: 0 1px 2px rgba(22, 44, 65, 0.04), 0 6px 24px rgba(22, 44, 65, 0.06);
+    --shadow-elevated: 0 2px 6px rgba(22, 44, 65, 0.05), 0 12px 40px rgba(22, 44, 65, 0.08);
+
+    /* Radii — sharp, per BRANDING.md */
+    --radius-0: 0px;
+    --radius-1: 2px;
+    --radius-2: 4px;
+    --radius-3: 6px;
+    /* absolute max */
+
+    /* Spacing tokens */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+
+    /* Motion tokens */
+    --motion-fast: 120ms;
+    --motion-normal: 180ms;
+    --motion-soft: 260ms;
+    --motion-slow: 360ms;
+    --motion-ambient: 480ms;
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Legacy aliases — preserve backward compatibility */
+    --cf-surface: #F5F8FB;
+    --cf-surface-dim: #EDF3F8;
+    --cf-surface-bright: #FFFFFF;
+    --cf-surface-container-lowest: #FFFFFF;
+    --cf-surface-container-low: #F9FBFD;
+    --cf-surface-container: #F2F6FA;
+    --cf-surface-container-high: #E6EDF4;
+    --cf-surface-container-highest: #D7E2EC;
+    --cf-surface-variant: #EDF3F8;
+    --cf-surface-tint: #C4D3E0;
+    --cf-on-surface: #162C41;
+    --cf-on-surface-variant: #4F606F;
+    --cf-inverse-surface: #162C41;
+    --cf-inverse-on-surface: #FFFFFF;
+    --cf-background: #F5F8FB;
+    --cf-on-background: #162C41;
+    --cf-primary: #D7E2EC;
+    --cf-on-primary: #162C41;
+    --cf-primary-container: #EDF3F8;
+    --cf-on-primary-container: #162C41;
+    --cf-inverse-primary: #244B73;
+    --cf-secondary: #C4D3E0;
+    --cf-on-secondary: #162C41;
+    --cf-secondary-container: #F9FBFD;
+    --cf-on-secondary-container: #4F606F;
+    --cf-tertiary: #E7EEF5;
+    --cf-on-tertiary: #162C41;
+    --cf-tertiary-container: #F5F8FB;
+    --cf-on-tertiary-container: #4F606F;
+    --cf-outline: #D7E2EC;
+    --cf-outline-variant: #E7EEF5;
+    --cf-error: #9B4A4A;
+    --cf-on-error: #FFFFFF;
+    --cf-error-container: #F5ECEC;
+    --cf-on-error-container: #7A3535;
+    --cf-radius-sm: 2px;
+    --cf-radius-md: 4px;
+    --cf-radius-lg: 4px;
+    --cf-radius-xl: 4px;
+    --cf-radius-full: 9999px;
+    --cf-spacing-unit: 8px;
+    --cf-container-padding: 24px;
+    --cf-card-gap: 16px;
+    --cf-section-margin: 40px;
+    --cf-glass-padding: 16px;
+    --cf-shadow-card: 0 1px 3px rgba(22, 44, 65, 0.06), 0 4px 16px rgba(22, 44, 65, 0.06);
+    --cf-shadow-elevated: 0 2px 6px rgba(22, 44, 65, 0.07), 0 10px 32px rgba(22, 44, 65, 0.08);
+    --cf-shadow-panel: 0 1px 2px rgba(22, 44, 65, 0.04), 0 8px 32px rgba(22, 44, 65, 0.07);
+    --cf-shadow-accent: 0 1px 2px rgba(22, 44, 65, 0.04), 0 6px 20px rgba(22, 44, 65, 0.06);
+    --cf-focus-ring: 0 0 0 3px rgba(36, 75, 115, 0.20);
+    --cf-motion-fast: 120ms;
+    --cf-motion-standard: 180ms;
+    --cf-motion-cinematic: 360ms;
+    --cf-motion-drift: 480ms;
+    --cf-easing-clinical: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --cf-easing-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* ── Global Base Resets ───────────────────────────────────── */
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'IBM Plex Sans', 'Source Sans 3', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv01', 'cv03', 'cv04';
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  /* Clinical keyboard focus ring — navy, not blue */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--cf-focus-ring);
+  }
+
+  /* Compact, clinical scrollbars */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-default);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
+  }
+
+  /* Report body uses EB Garamond */
+  .font-report {
+    font-family: 'EB Garamond', Garamond, 'Times New Roman', Georgia, serif;
+  }
+
+  /* Reduced motion overrides */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── Component Classes ─────────────────────────────────────── */
+@layer components {
+
+  /* ── Primary Button ─────────────────────────────────────── */
+  /* Deep navy fill, white text, sharp rectangular shape */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 h-9;
+    background-color: var(--aletheia-navy);
+    color: #FFFFFF;
+    @apply border border-transparent;
+    border-radius: var(--radius-1);
+    @apply text-xs font-medium tracking-wide;
+    @apply transition-all;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-standard);
+    @apply select-none cursor-pointer;
+    @apply focus-visible:outline-none;
+    @apply disabled:opacity-40 disabled:cursor-not-allowed;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .btn-primary:focus-visible {
+    box-shadow: var(--cf-focus-ring);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: #0F1F2E;
+  }
+
+  .btn-primary:active:not(:disabled) {
+    background-color: #0a1520;
+  }
+
+  /* ── Ghost / Secondary Button ───────────────────────────── */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 h-9;
+    background-color: var(--surface-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-1);
+    @apply text-xs font-medium;
+    letter-spacing: 0.01em;
+    @apply transition-all;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-standard);
+    @apply select-none cursor-pointer;
+    @apply focus-visible:outline-none;
+    @apply disabled:opacity-40 disabled:cursor-not-allowed;
+    white-space: nowrap;
+  }
+
+  .btn-ghost:focus-visible {
+    box-shadow: var(--cf-focus-ring);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-strong);
+  }
+
+  .btn-ghost:active:not(:disabled) {
+    background-color: var(--bg-tertiary);
+  }
+
+  /* ── Danger Button ──────────────────────────────────────── */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 h-9;
+    background-color: var(--cf-error-container);
+    color: var(--cf-on-error-container);
+    border: 1px solid var(--state-declined);
+    border-radius: var(--radius-1);
+    @apply text-xs font-medium;
+    letter-spacing: 0.01em;
+    @apply transition-all;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-standard);
+    @apply disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background-color: var(--state-declined);
+    color: #FFFFFF;
+  }
+
+  /* ── Cards ──────────────────────────────────────────────── */
+  .card-standard {
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+    padding: var(--cf-glass-padding);
+    box-shadow: var(--cf-shadow-card);
+  }
+
+  .card-elevated {
+    background-color: var(--surface-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-2);
+    padding: var(--cf-glass-padding);
+    box-shadow: var(--cf-shadow-elevated);
+  }
+
+  /* ── Input Fields ───────────────────────────────────────── */
+  .input-field {
+    @apply block w-full;
+    background-color: var(--surface-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-2);
+    @apply px-3 py-2;
+    font-size: 13px;
+    line-height: 1.4;
+    font-family: inherit;
+    @apply transition-all;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-standard);
+    @apply placeholder:text-[var(--text-muted)];
+    @apply focus:outline-none;
+    @apply disabled:opacity-60 disabled:cursor-not-allowed disabled:bg-[var(--surface-muted)];
+  }
+
+  .input-field:focus {
+    border-color: var(--state-info);
+    box-shadow: var(--cf-focus-ring);
+  }
+
+  .textarea-field {
+    @apply input-field;
+    @apply resize-none;
+    line-height: 1.55;
+  }
+
+  /* ── Form Labels ────────────────────────────────────────── */
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  /* ── Section Headers ────────────────────────────────────── */
+  .section-header {
+    @apply flex items-center gap-2 pb-2 mb-4;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+  }
+
+  .section-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ── Result / Report Panel ──────────────────────────────── */
+  .result-panel {
+    background-color: var(--surface-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+    box-shadow: var(--cf-shadow-panel);
+    padding: var(--cf-glass-padding);
+  }
+
+  /* ── Badges / Status Chips ──────────────────────────────── */
+  /* Rectangular, not pills — per BRANDING.md */
+  .badge {
+    @apply inline-flex items-center gap-1;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: var(--radius-1);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .badge-primary {
+    @apply badge;
+    background-color: #EDF3F8;
+    color: #244B73;
+    border-color: #C4D3E0;
+  }
+
+  .badge-secondary {
+    @apply badge;
+    background-color: var(--surface-muted);
+    color: var(--text-secondary);
+    border-color: var(--border-default);
+  }
+
+  .badge-tertiary {
+    @apply badge;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-color: var(--border-subtle);
+  }
+
+  .badge-error {
+    @apply badge;
+    background-color: var(--cf-error-container);
+    color: var(--cf-on-error-container);
+    border-color: var(--state-declined);
+  }
+
+  /* Confidence-specific badges */
+  .badge-high {
+    @apply badge;
+    background-color: rgba(36, 75, 115, 0.08);
+    color: #244B73;
+    border-color: rgba(36, 75, 115, 0.25);
+  }
+
+  .badge-medium {
+    @apply badge;
+    background-color: rgba(93, 120, 146, 0.08);
+    color: #4F606F;
+    border-color: rgba(93, 120, 146, 0.25);
+  }
+
+  .badge-low {
+    @apply badge;
+    background-color: var(--surface-muted);
+    color: var(--text-muted);
+    border-color: var(--border-default);
+  }
+
+  /* State badges */
+  .badge-stable {
+    @apply badge;
+    background-color: rgba(62, 107, 97, 0.08);
+    color: var(--state-stable);
+    border-color: rgba(62, 107, 97, 0.25);
+  }
+
+  .badge-evolving {
+    @apply badge;
+    background-color: rgba(197, 138, 43, 0.08);
+    color: var(--state-evolving);
+    border-color: rgba(197, 138, 43, 0.25);
+  }
+
+  .badge-declined {
+    @apply badge;
+    background-color: rgba(155, 74, 74, 0.08);
+    color: var(--state-declined);
+    border-color: rgba(155, 74, 74, 0.25);
+  }
+
+  /* ── Interactive List Items ─────────────────────────────── */
+  .list-item {
+    @apply flex items-center gap-3 px-3 py-2.5;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-1);
+    background-color: transparent;
+    @apply transition-all cursor-pointer;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  .list-item:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-default);
+  }
+
+  /* ── Citation Chip ──────────────────────────────────────── */
+  /* Rectangular not rounded — clinical, not consumer */
+  .citation-chip {
+    @apply inline-flex items-center justify-center mx-0.5;
+    padding: 1px 5px;
+    font-size: 11px;
+    font-weight: 600;
+    background-color: var(--surface-muted);
+    color: var(--state-info);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-1);
+    @apply transition-all cursor-pointer;
+    transition-duration: var(--motion-fast);
+    font-variant-numeric: tabular-nums;
+    vertical-align: baseline;
+    position: relative;
+    top: -1px;
+  }
+
+  .citation-chip:hover {
+    background-color: #EDF3F8;
+    border-color: var(--state-info);
+    color: var(--aletheia-navy);
+  }
+
+  .citation-chip:focus-visible {
+    box-shadow: var(--cf-focus-ring);
+    outline: none;
+  }
+
+  /* ── Severity Badges ────────────────────────────────────── */
+  .severity-badge-low {
+    background-color: rgba(62, 107, 97, 0.08);
+    color: var(--state-stable);
+    border-color: rgba(62, 107, 97, 0.25);
+  }
+
+  .severity-badge-moderate {
+    background-color: rgba(197, 138, 43, 0.08);
+    color: var(--state-evolving);
+    border-color: rgba(197, 138, 43, 0.25);
+  }
+
+  .severity-badge-high {
+    background-color: rgba(155, 74, 74, 0.08);
+    color: var(--state-declined);
+    border-color: rgba(155, 74, 74, 0.25);
+  }
+
+  .severity-badge-critical {
+    background-color: rgba(155, 74, 74, 0.12);
+    color: var(--state-declined);
+    border-color: rgba(155, 74, 74, 0.40);
+    font-weight: 600;
+  }
+
+  /* ── Urgency Badges ─────────────────────────────────────── */
+  .urgency-badge-routine {
+    background-color: var(--surface-muted);
+    color: var(--text-muted);
+    border-color: var(--border-default);
+  }
+
+  .urgency-badge-urgent {
+    background-color: rgba(197, 138, 43, 0.08);
+    color: var(--state-evolving);
+    border-color: rgba(197, 138, 43, 0.25);
+  }
+
+  .urgency-badge-emergent {
+    background-color: rgba(155, 74, 74, 0.10);
+    color: var(--state-declined);
+    border-color: rgba(155, 74, 74, 0.35);
+  }
+
+  /* ── Category Badge ─────────────────────────────────────── */
+  .category-badge {
+    @apply inline-flex items-center;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: var(--radius-1);
+    border: 1px solid var(--border-default);
+    background-color: var(--surface-muted);
+    color: var(--text-muted);
+  }
+
+  /* ── Finding Cards ──────────────────────────────────────── */
+  .finding-card {
+    padding: 12px 14px;
+    border-radius: var(--radius-2);
+    border: 1px solid transparent;
+    transition: border-color var(--motion-fast) var(--ease-standard);
+  }
+
+  .finding-card--supporting {
+    background-color: rgba(62, 107, 97, 0.05);
+    border-color: rgba(62, 107, 97, 0.20);
+  }
+
+  .finding-card--contradictory {
+    background-color: rgba(197, 138, 43, 0.05);
+    border-color: rgba(197, 138, 43, 0.20);
+  }
+
+  /* ── Next Step Card ─────────────────────────────────────── */
+  .next-step-card {
+    background-color: var(--surface-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+    padding: 14px 16px;
+    box-shadow: var(--cf-shadow-card);
+  }
+
+  /* ── Missing Info Card ──────────────────────────────────── */
+  .missing-info-card {
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+    padding: 14px 16px;
+  }
+
+  /* ── References Footer ──────────────────────────────────── */
+  .references-footer {
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+    padding: 20px 24px;
+  }
+
+  /* ── Accent Band ────────────────────────────────────────── */
+  .accent-band {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-2);
+  }
+}
+
+/* ── Utility Extensions ────────────────────────────────────── */
+@layer utilities {
+  .ease-clinical {
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ease-spring {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ease-standard {
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ease-soft {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .duration-fast {
+    transition-duration: 120ms;
+  }
+
+  .duration-normal {
+    transition-duration: 180ms;
+  }
+
+  .duration-soft {
+    transition-duration: 260ms;
+  }
+
+  .duration-slow {
+    transition-duration: 360ms;
+  }
+
+  .duration-ambient {
+    transition-duration: 480ms;
+  }
+
+  /* Legacy aliases */
+  .duration-standard {
+    transition-duration: 180ms;
+  }
+
+  .duration-cinematic {
+    transition-duration: 360ms;
+  }
+
+  .duration-drift {
+    transition-duration: 480ms;
+  }
+
+  .shadow-focus {
+    box-shadow: 0 0 0 3px rgba(36, 75, 115, 0.20);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Tabular numerics for clinical data */
+  .num-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Report mode — apply EB Garamond */
+  .report-body {
+    font-family: 'EB Garamond', Garamond, 'Times New Roman', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-primary);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

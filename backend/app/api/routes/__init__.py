@@ -1,0 +1,4 @@
+# API routes package
+from .cases import router as cases_router
+
+__all__ = ["cases_router"]

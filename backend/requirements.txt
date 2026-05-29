@@ -1,0 +1,46 @@
+# Architectural Notes & Categories
+
+# Web Framework
+# - fastapi: Chosen for its high performance, ease of use, and native async support for building robust APIs.
+# - uvicorn[standard]: Selected as the lightning-fast ASGI server required to run FastAPI applications.
+# - python-multipart: Required by FastAPI to natively handle form data and complex file uploads.
+fastapi==0.136.3
+uvicorn[standard]==0.48.0
+python-multipart==0.0.29
+
+# Database
+# - sqlalchemy: The industry-standard ORM for Python, providing a flexible and powerful way to interact with the database.
+# - aiosqlite: Used to provide asynchronous I/O for SQLite, aligning with the async nature of FastAPI.
+# - alembic: Essential for tracking and applying database schema migrations over time, tightly integrated with SQLAlchemy.
+SQLAlchemy==2.0.50
+aiosqlite==0.22.1
+alembic==1.18.4
+
+# Configuration & Validation
+# - pydantic: Core to FastAPI for enforcing data types, validating inputs, and serialization.
+# - pydantic-settings: Manages complex environment variables and configuration settings seamlessly.
+# - python-dotenv: A straightforward tool for loading environment variables from local .env files during development.
+pydantic==2.13.4
+pydantic-settings==2.14.1
+python-dotenv==1.2.2
+
+# AI / Grounding
+# - google-genai: The official unified SDK for Google's Gemini models (replaces deprecated google-generativeai).
+google-genai==2.7.0
+
+# Export
+# - reportlab: A robust, proven library specifically selected for programmatic PDF generation and layout control.
+# - python-pptx: Required for exporting reports to PowerPoint presentations.
+reportlab==4.5.1
+python-pptx==1.0.2
+
+# Utilities
+# - httpx: A modern, fully async HTTP client needed for making external web requests from within the API.
+# - loguru: Chosen for its superior developer experience in logging, offering clear formatting and easy file rotation.
+# - tenacity: A powerful retry library that simplifies handling transient failures, especially useful for external API calls.
+# - keyring: Securely store API keys using the OS Keyring.
+httpx==0.28.1
+loguru==0.7.3
+tenacity==9.1.4
+json-repair==0.59.10
+keyring==25.2.1

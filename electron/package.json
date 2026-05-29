@@ -1,0 +1,53 @@
+{
+  "name": "aletheia-desktop",
+  "version": "1.0.0",
+  "description": "Aletheia Clinical Workstation - Desktop Edition",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --linux AppImage"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.biowess.aletheia",
+    "productName": "Aletheia",
+    "copyright": "Copyright © 2026 Biowess",
+    "directories": {
+      "output": "../dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "assets/**"
+    ],
+    "extraFiles": [
+      {
+        "from": "../backend/dist",
+        "to": "backend"
+      },
+      {
+        "from": "../frontend/dist",
+        "to": "frontend/dist"
+      },
+      {
+        "from": "../fonts",
+        "to": "fonts"
+      }
+    ],
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "../appicon.png",
+      "category": "Science"
+    }
+  }
+}
