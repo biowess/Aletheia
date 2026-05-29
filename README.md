@@ -163,24 +163,23 @@ NCBI_API_KEY=your_ncbi_api_key_here
 #### 3. Launch
 
 ```bash
-python launcher.py
+chmod +x initialize.sh
+./initialize.sh
 ```
 
-That's it. The launcher handles everything automatically:
+That's it. The initializer handles system package installations (Python 3.11+, Node.js, npm, venv, and port utilities) across apt, dnf, yum, and pacman systems, bootstraps a secure environment, and runs the orchestrator:
 
-1. Validates Python 3.11+ and Node 18+ in your PATH
-2. Creates `backend/.venv` Python virtual environment
-3. Installs all Python dependencies from `backend/requirements.txt`
-4. Installs frontend npm dependencies from `frontend/package.json`
-5. Resolves any port conflicts on `8000` and `5173`
-6. Starts the FastAPI backend (Uvicorn) and Vite dev server in parallel
-7. Opens `http://localhost:5173` in your default browser after a 3-second grace period
+1. Auto-detects and installs system-level dependencies using your package manager
+2. Bootstraps a lightweight python `.bootstrap-venv` environment
+3. Launches `launcher.py` to handle virtualenvs and parallel server orchestration
+4. Starts both the FastAPI server and Vite dev server, then opens `http://localhost:5173`
 
 #### Launcher options
 
+You can pass standard launcher flags directly:
 ```bash
 # Start without auto-opening the browser
-python launcher.py --no-browser
+./initialize.sh --no-browser
 ```
 
 ---
