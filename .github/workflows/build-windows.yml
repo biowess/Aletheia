@@ -32,31 +32,43 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-          pyinstaller backend.spec
-        shell: cmd
+          pyinstaller backend.spec --clean
+          Write-Host "--- backend/dist contents ---"
+          Get-ChildItem -Recurse dist | Select-Object FullName
+        shell: pwsh
 
       - name: Build React Frontend
         run: |
           cd frontend
           npm install
           npm run build
-        shell: cmd
+          Write-Host "--- frontend/dist contents ---"
+          Get-ChildItem -Recurse dist | Select-Object FullName
+        shell: pwsh
 
       - name: Build Electron App
         run: |
           cd electron
           npm install
           npx electron-builder --win
-        shell: cmd
+          Write-Host "--- dist contents ---"
+          Get-ChildItem -Recurse ../dist | Select-Object FullName
+        shell: pwsh
 
       - name: Check Output Directory
+        if: always()
         run: |
-          dir dist
-        shell: cmd
+          Write-Host "--- repo root dist ---"
+          if (Test-Path dist) { Get-ChildItem -Recurse dist | Select-Object FullName } else { Write-Host "dist/ does not exist" }
+        shell: pwsh
 
       - name: Upload Windows Executable Artifact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: Aletheia-Windows-Setup
-          path: dist/
+          path: |
+            dist/
+            electron/dist/
+            **/*.exe
           retention-days: 7
