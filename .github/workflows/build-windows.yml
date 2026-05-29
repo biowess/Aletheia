@@ -8,6 +8,8 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -51,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Aletheia-Windows-Setup
-          path: dist/*.exe
+          path: dist/**/*.exe
           retention-days: 7
