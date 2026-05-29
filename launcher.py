@@ -44,7 +44,7 @@ def bootstrap():
     if res.returncode != 0:
         print("installing Python dependencies")
         subprocess.run(
-            [venv_python, "-m", "pip", "install", "-r", req_path],
+            [venv_python, "-m", "pip", "install", "rich", "-r", req_path],
             check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
