@@ -1,0 +1,55 @@
+name: Build Windows Executable
+
+on:
+  workflow_dispatch:  # Allows manual triggering from the GitHub Actions tab
+  release:
+    types: [created]  # Optionally triggers when you create a new GitHub release
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Build Python Backend
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+          pyinstaller backend.spec
+        shell: cmd
+
+      - name: Build React Frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+        shell: cmd
+
+      - name: Build Electron App
+        run: |
+          cd electron
+          npm install
+          npx electron-builder --win
+        shell: cmd
+
+      - name: Upload Windows Executable Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aletheia-Windows-Setup
+          path: dist/*.exe
+          retention-days: 7
