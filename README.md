@@ -169,9 +169,8 @@ chmod +x initialize.sh
 ```
 
 **Windows:**
-```bat
-start.bat
-```
+Unfortunately, this project currently only supports **Linux** (native or via WSL 2). 
+Due to differences in OS loopback and DNS routing behaviors between Linux and Windows, running the development server natively on Windows will result in proxy connection errors (`ECONNREFUSED`). Native Windows compatibility is planned for a future release.
 
 That's it. The launcher automatically:
 
