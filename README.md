@@ -430,6 +430,7 @@ The design philosophy: **clinical, elegant, precise, restrained.** No rounded pi
 - [ ] OS keychain integration for secrets management (replace `.env` plaintext storage)
 - [ ] Gemini streaming responses with progressive report section rendering
 - [ ] Thread pool execution for PDF/PPTX export (prevent event-loop blocking)
+- [ ] Implement cross-platform IPv4/IPv6 dual-binding for Windows compatibility.
 
 **Mid-term**
 - [ ] PostgreSQL migration with asyncpg (unblock concurrent writes)
